@@ -18,6 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('admin')->default('0');//if it is admin or not
+            $table->string('address');
+            $table->string('phone')->unique();
+            $table->string('location');
+            $table->string('sales')->default('0'); //how many items that the user buy from this website 
+            $table->string('info')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -20,6 +20,16 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         }
+        if ($this->auth->check() && $this->auth->user()->isAdmin())
+        {
+            return redirect()->route('users.index');
+        }
+    
+        // If the user is authenticated we redirect them to the normal 
+        // dashboard page or initial page. 
+        if ($this->auth->check()) {
+            return redirect('/');
+        }
 
         return $next($request);
     }
