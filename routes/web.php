@@ -22,5 +22,6 @@ Route::get('protected', ['middleware' => ['auth', 'admin'], function() {
 }]);
 
 Route::resource('/admin/users', 'UserController', ['middleware' => ['auth', 'admin']]);
+Route::resource('/admin/admins', 'AdminController', ['middleware' => ['auth', 'admin']]);
 Route::resource('/admin/categories','CategoryController',['middleware'=>['auth','admin']])->except('create','show');
 Route::get('/home', 'HomeController@index')->name('home');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Rules\ValidPhone;
 
@@ -22,7 +23,6 @@ class userController extends Controller
     public function index()
     {
         $users = User::where('admin' ,'0')->get();
-        $admins = User::where('admin','1')->get();
         return view('users.index',compact('users','admins'));
     }
 

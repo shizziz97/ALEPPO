@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use App\Rules\ValidPhone;
 
 class AdminController extends Controller
@@ -15,8 +16,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = User::where('admin','1');
-        return view('admins.index');
+        $admins = User::where('admin','1')->get();
+        return view('admins.index',compact('admins'));
     }
 
     /**
@@ -49,13 +50,16 @@ class AdminController extends Controller
         $admin->name = $request->name;
         $admin->admin = "1";
         $admin->email = $request->email;
+        $admin->info = $request->info;
         $admin->phone = $request->phone;
         $admin->address = $request->address;
         $admin->location = $request->location;
         $admin->password = Hash::make($request->password);
         $admin->save();
         alert()->success('New Admin Created' ,'Successfully');
-        return redirect()->route('admin.index');
+        if($admin)
+        return redirect()->route('admins.index');
+        return redirct()->route('/home');
     }
 
     /**
@@ -107,6 +111,7 @@ class AdminController extends Controller
             $admin->email = $request->email;
             $admin->phone = $request->phone;
             $admin->address = $request->address;
+            $admin->info = $request->info;
             $admin->location = $request->location;
             $admin->save();
             alert()->success('Update Admin' ,'Successfully');
